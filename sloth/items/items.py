@@ -830,3 +830,38 @@ class PolygonItem(BaseItem):
     def dataChange(self):
         polygon = self._dataToPolygon(self._model_item)
         self._updatePolygon(polygon)
+
+
+class FishItem(PolygonItem):
+    def __call__(self, model_item=None, parent=None):
+        item = FishItem(model_item, parent)
+        item.setPen(self.pen())
+        item.setBrush(self.brush())
+        return item
+
+    def paint(self, painter, option, widget=None):
+        BaseItem.paint(self, painter, option, widget)
+        def get_pen():
+            pen = self.pen()
+            pen.setWidthF(0.5)
+            if self.isSelected():
+                pen.setStyle(Qt.DotLine)
+            return pen
+
+        radius = 2.5
+        p1 = self._polygon[0]
+        pen = get_pen()
+        painter.setPen(get_pen())
+
+        r = radius - 2*pen.widthF()
+        painter.drawEllipse(QPointF(p1), radius, radius)
+
+        p = self._polygon
+        dx = p[1].x() - p[0].x()
+        dy = p[1].y() - p[0].y()
+        norm = (dx**2 + dy**2)**0.5
+        vertical = QPointF(5 * dy / norm, - 5 * dx/norm)
+        a = p[0] + QPointF(0.25*dx, 0.25*dy) + vertical
+        b = p[0] + QPointF(0.25*dx, 0.25*dy) - vertical
+        points = [p[0], a, p[1], b, p[0]]
+        painter.drawPolygon(QPolygonF(points))

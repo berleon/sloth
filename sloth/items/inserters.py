@@ -443,3 +443,28 @@ class PolygonItemInserter(ItemInserter):
                           self._prefix + 'yn':
                               ";".join([str(p.y()) for p in polygon])})
         self._ann.update(self._default_properties)
+
+
+class FishItemInserter(PolygonItemInserter):
+
+    def __init__(self, labeltool, scene, default_properties=None,
+                 prefix="", commit=True):
+        super().__init__(labeltool, scene, default_properties, prefix, commit)
+        self._scene.setMessage("Mark the head of the fish.")
+
+    def mousePressEvent(self, event, image_item):
+        super().mousePressEvent(event, image_item)
+        polygon = self._item.polygon()
+        print(len(polygon))
+        for i in range(len(polygon)):
+            print(polygon[i])
+        if len(polygon) == 2:
+            self._scene.setMessage("Mark the tail of the fish.")
+        if len(polygon) == 3:
+            self._removeLastPointAndFinish(image_item)
+
+    def mouseDoubleClickEvent(self, event, image_item):
+        pass
+
+    def keyPressEvent(self, event, image_item):
+        pass
