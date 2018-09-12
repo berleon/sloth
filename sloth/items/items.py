@@ -833,6 +833,7 @@ class PolygonItem(BaseItem):
 
 
 class FishItem(PolygonItem):
+    color = Qt.red
     def __call__(self, model_item=None, parent=None):
         item = FishItem(model_item, parent)
         item.setPen(self.pen())
@@ -841,9 +842,10 @@ class FishItem(PolygonItem):
 
     def paint(self, painter, option, widget=None):
         BaseItem.paint(self, painter, option, widget)
-        def get_pen():
+        def get_pen(self):
             pen = self.pen()
             pen.setWidthF(0.5)
+            pen.setColor(self.color)
             if self.isSelected():
                 pen.setStyle(Qt.DotLine)
             return pen
@@ -851,8 +853,7 @@ class FishItem(PolygonItem):
         radius = 2.5
         p1 = self._polygon[0]
         pen = get_pen()
-        painter.setPen(get_pen())
-
+        painter.setPen(pen)
         r = radius - 2*pen.widthF()
         painter.drawEllipse(QPointF(p1), radius, radius)
 
@@ -865,3 +866,15 @@ class FishItem(PolygonItem):
         b = p[0] + QPointF(0.25*dx, 0.25*dy) - vertical
         points = [p[0], a, p[1], b, p[0]]
         painter.drawPolygon(QPolygonF(points))
+
+
+class FishItem1(FishItem):
+    color = Qt.blue
+
+
+class FishItem2(FishItem):
+    color = Qt.green
+
+
+class FishItem3(FishItem):
+    color = Qt.red

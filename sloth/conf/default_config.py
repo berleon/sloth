@@ -75,9 +75,27 @@ LABELS = (
             'class':    'fish',
         },
         'inserter': 'sloth.items.FishItemInserter',
-        'item':     'sloth.items.FishItem',
-        'hotkey':   'l',
-        'text':     'Fish',
+        'item':     'sloth.items.FishItem1',
+        'hotkey':   '1',
+        'text':     'Fish 1',
+    },
+    {
+        'attributes': {
+            'class':    'fish_2',
+        },
+        'inserter': 'sloth.items.FishItemInserter',
+        'item':     'sloth.items.FishItem2',
+        'hotkey':   '2',
+        'text':     'Fish 2',
+    },
+    {
+        'attributes': {
+            'class':    'fish_3',
+        },
+        'inserter': 'sloth.items.FishItemInserter',
+        'item':     'sloth.items.FishItem3',
+        'hotkey':   '3',
+        'text':     'Fish 3',
     },
 )
 
