@@ -842,7 +842,7 @@ class FishItem(PolygonItem):
 
     def paint(self, painter, option, widget=None):
         BaseItem.paint(self, painter, option, widget)
-        def get_pen(self):
+        def get_pen():
             pen = self.pen()
             pen.setWidthF(0.5)
             pen.setColor(self.color)
